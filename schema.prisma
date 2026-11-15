@@ -1,0 +1,116 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  passwordHash        String
+  name                String?
+  emailVerified       Boolean              @default(false)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  notes               Note[]
+  media               Media[]
+  tombstones          NoteTombstone[]
+  verificationTokens  VerificationToken[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@map("users")
+}
+
+model Note {
+  id            String   @id
+  title         String
+  excerpt       String   @default("")
+  body          String   @default("")
+  tags          String[] @default([])
+  category      String   @default("Personal")
+  tone          String   @default("blue")
+  kind          String   @default("text")
+  pinned        Boolean  @default(false)
+  favorite      Boolean  @default(false)
+  archived      Boolean  @default(false)
+  trashed       Boolean  @default(false)
+  hasImage      Boolean  @default(false)
+  imageFileName String?
+  hasAudio      Boolean  @default(false)
+  audioDuration Int?
+  version       Int      @default(1)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media         Media[]
+
+  @@index([userId])
+  @@map("notes")
+}
+
+model Media {
+  id          String   @id @default(cuid())
+  noteId      String
+  userId      String
+  kind        String   // "image" | "audio"
+  storageKey  String   @unique
+  fileName    String
+  mimeType    String
+  sizeBytes   Int
+  durationSec Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  note        Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([noteId])
+  @@index([userId])
+  @@map("media")
+}
+
+model NoteTombstone {
+  id        String   @id @default(cuid())
+  noteId    String
+  userId    String
+  deletedAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, noteId])
+  @@index([userId])
+  @@map("note_tombstones")
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+

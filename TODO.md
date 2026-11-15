@@ -1,0 +1,12 @@
+# NOTECRAFT — Phase 1
+
+## Product outcomes
+
+- [ ] **Apply the supplied mobile UI reference:** Use my uploaded mobile UI reference as the primary design inspiration. The reference image was not available in the project workspace or Downloads during implementation; the implemented visual direction follows the written design brief.
+- [x] **Premium visual design and responsive workspace:** Create a polished, Apple-inspired notes experience with a soft blue-and-white color palette, rounded cards, elegant typography, subtle shadows, and a floating pill-shaped navigation bar. Make the interface responsive across mobile, tablet, and desktop. Create a beautiful desktop workspace instead of merely stretching the mobile layout. Use realistic demo notes so every screen looks populated.
+- [x] **Dashboard and note editor:** Dashboard with search, quick-create cards, recent notes, and pinned notes. Note editor with title, content, tags, categories, and AI action cards.
+- [x] **Voice and library screens:** Voice recording screen with a beautiful animated waveform. Search, favorites, archive, trash, and settings screens. Include working navigation and interactive UI states.
+- [x] **Purposeful motion and accessibility:** Use GSAP for sophisticated animation timelines, scroll-triggered reveals, staggered elements, and cinematic transitions where appropriate. Use Framer Motion for interactive cards, modal transitions, layout changes, and micro-interactions. Animations should be fluid, premium, and purposeful—not excessive. Respect reduced-motion preferences.
+- [x] **Dashboard note-card stagger:** Add a custom GSAP scroll-triggered stagger animation to the recent and pinned note cards on the dashboard. Keep it scoped to the dashboard, preserve existing card interactions and responsive layout, and respect reduced-motion preferences.
+- [x] **Requested stack and extensible frontend foundation:** Use React + TypeScript + Vite, Tailwind CSS, GSAP + ScrollTrigger, Framer Motion, and Lucide React icons. Focus on the frontend UI and reusable components first. Keep the code modular, typed, and easy to extend.
+- [x] **Honest Phase 1 scope and setup:** Do not build a static screenshot or claim backend functionality that does not exist. Ensure the project installs and builds successfully. Include a README with setup instructions. This is Phase 1 of a larger project. Do not implement a fake AI backend or unnecessary infrastructure yet. Prioritize exceptional visual quality and a clean foundation for adding real functionality later.
